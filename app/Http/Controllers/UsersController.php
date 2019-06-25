@@ -22,7 +22,8 @@ class UsersController extends Controller
         $this->validate(request(),[
             'name' => 'required|min:5|max:10',
             'email' => 'required|email|unique:users',
-            'password' => 'required|confired',
+            'password' => 'required|confirmed',
         ]);
+        return redirect()->back();
     }
 }
