@@ -30,7 +30,8 @@
                     <input type="password" name="password_confirmation" class="form-control"
                         value="{{ old('password_confirmation') }}">
                 </div>
-
+                @include('shared._errors')
+                @include('shared._messages')
                 <button type="submit" class="btn btn-primary">注册</button>
             </form>
         </div>

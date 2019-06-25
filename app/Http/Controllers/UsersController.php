@@ -10,6 +10,11 @@ class UsersController extends Controller
     {
         return view('users.create');
     }
+
+    public function index()
+    {
+        return view('users.create');
+    }
     //显示注册页面
     public function show(User $user)
     {
@@ -20,10 +25,19 @@ class UsersController extends Controller
     {
         //验证 name email password
         $this->validate(request(),[
-            'name' => 'required|min:5|max:10',
+            'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed',
         ]);
-        return redirect()->back();
+
+        $user = User::create([
+            'name' => request('name'),
+            'email' => request('email'),
+            'password' => bcrypt(111111),
+        ]);
+        
+        session()->flash('success', '欢迎，您将在这里开启一段新的旅程~');
+        // return redirect()->route('users.show',[$user]);
+        return back();
     }
 }
