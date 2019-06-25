@@ -21,6 +21,30 @@ class UsersController extends Controller
     {
         return view('users.show',compact('user'));
     }
+
+    //编辑页面
+    public function edit(User $user)
+    {
+        return view('users.edit',compact('user'));
+    }
+    //编辑逻辑
+    public function update(User $user)
+    {
+        //验证 name email password
+        $this->validate(request(),[
+            'name' => 'required',
+            'password' => 'nullable|confirmed',
+        ]);
+        $data = [];
+        $data['name'] = request('name');
+        if (request('password')) {
+            $data['password'] = bcrypt(request('password'));
+        }
+        $user->update($data);
+        session()->flash('success','个人资料更新成功！');
+        return redirect()->route('users.show',$user->id);
+    }
+
     //注册逻辑
     public function store()
     {
@@ -41,4 +65,5 @@ class UsersController extends Controller
         return redirect()->route('users.show',[$user]);
         // return back();
     }
+    
 }
