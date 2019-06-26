@@ -7,6 +7,16 @@ use App\Models\User;
 use Auth;
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth',[
+            'except' => ['show','create','store'],
+        ]);
+
+        $this->middleware('guest',[
+            'only' =>['create'],
+        ]);
+    }
     public function create()
     {
         return view('users.create');
@@ -16,6 +26,7 @@ class UsersController extends Controller
     {
         return view('users.create');
     }
+
     //显示注册页面
     public function show(User $user)
     {
@@ -25,11 +36,13 @@ class UsersController extends Controller
     //编辑页面
     public function edit(User $user)
     {
+        $this->authorize('update',$user);
         return view('users.edit',compact('user'));
     }
     //编辑逻辑
     public function update(User $user)
     {
+        $this->authorize('update',$user);
         //验证 name email password
         $this->validate(request(),[
             'name' => 'required',
