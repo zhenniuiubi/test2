@@ -1,5 +1,5 @@
 <form action="{{route('statuses.store')}}" method="POST">
-    @include('shared._errors')
+    @include('shared._messages')
     {{csrf_field()}}
     <textarea name="content" id="" cols="30" rows="3" placeholder="聊聊新鲜事">{{ old('content') }}</textarea>
     <div class="text-right">

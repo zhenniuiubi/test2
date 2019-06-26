@@ -22,7 +22,9 @@ class StatusesController extends Controller
         $this->validate(request(),[
             'content' => 'required|max:140',
         ]);
-        Auth::user()->statuses()->create(request());
+        Auth::user()->statuses()->create([
+            'content' => request('content')
+        ]);
         session()->flash('success','发布成功');
         return redirect()->back();
 
