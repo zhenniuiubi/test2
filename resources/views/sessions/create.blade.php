@@ -23,10 +23,12 @@
                     <input type="password" name="password" class="form-control" value="{{ old('password') }}">
                 </div>
 
+                @if (Auth::check())
                 <div class="form-group">
                     <label for="password">密码（<a href="{{route('password.request')}}">忘记密码</a>）：</label>
                     <input type="password" name="password" class="form-control" value="{{ old('password') }}">
                 </div>
+                @endif
 
                 <div class="form-group">
                     <div class="form-check">
